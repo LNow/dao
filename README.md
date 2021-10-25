@@ -17,3 +17,52 @@ If some function will have `(list 200 uint)` argument, then I'll create `storage
 
 
 Main advantage of using `vote`, `task` and `storage` contract is that I can easily make any function vote-able.
+
+
+Example:
+
+```clojure
+;; create first vote to mint 199 tokens to tx-sender
+::get_costs (contract-call? .token-mint-vote create u199 tx-sender .token-mint-task)
+
+::advance_chain_tip 1
+
+;; vote yea
+(contract-call? .voting vote-yea u1)
+
+;; execute mint function
+(contract-call? .token-mint-task execute u1)
+::get_assets_maps
+
+;; 2nd vote to mint more tokens - this time we want to mint to someone else
+::get_costs (contract-call? .token-mint-vote create 400 'ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0 .token-mint-task)
+
+::advance_chain_tip 1
+
+;; vote yea
+(contract-call? .voting vote-yea u2)
+
+;; execute mint function
+(contract-call? .token-mint-task execute u2)
+
+::get_assets_maps
+
+;; now let's vote on transfering some funds out of the vault
+::get_costs (contract-call? .vault-transfer-vote create u800 'ST3PF13W7Z0RRM42A8VZRVFQ75SV1K26RXEP8YGKJ .vault-transfer-task)
+
+::advance_chain_tip 1
+
+;; vote yea
+(contract-call? .voting vote-yea u3)
+
+;; end try to execute it - it should throw err u2004, because yea stake must be >=50% of all tokens
+(contract-call? .vault-transfer-task execute u3)
+
+;; switch to 2nd account and vote yea
+::set_tx_sender ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0
+(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.voting vote-yea u3)
+
+;; try to execute again
+(contract-call? 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.vault-transfer-task execute u3)
+
+```
