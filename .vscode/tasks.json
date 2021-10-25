@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "check contract",
+      "group": "test", // <-- this will add this task to 'Run test task'
+      "type": "shell",
+      "command": "clarinet check"
+    },
+    {
+      "label": "test contract",
+      "group": "test", // <-- this will add this task to 'Run test task'
+      "type": "shell",
+      "command": "clarinet test"
+    }
+  ]
+}

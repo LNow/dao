@@ -1,0 +1,88 @@
+[project]
+name = "DAO"
+requirements = []
+costs_version = 2
+
+# used only to setup clarinet console env.
+[contracts.init]
+path = "contracts/init.clar"
+depends_on = [
+  "auth"
+]
+
+# Traits
+[contracts.sip-010-trait-ft-standard]
+path = "contracts/external/sip-010-trait-ft-standard.clar"
+depends_on = []
+
+[contracts.task-trait]
+path = "contracts/traits/task-trait.clar"
+depends_on = []
+
+# Core contracts
+[contracts.auth]
+path = "contracts/auth.clar"
+depends_on = []
+
+[contracts.token]
+path = "contracts/token/token.clar"
+depends_on = ["auth"]
+
+[contracts.voting]
+path = "contracts/voting/voting.clar"
+depends_on = ["auth", "token"]
+
+[contracts.vault]
+path = "contracts/vault/vault.clar"
+depends_on = ["auth"]
+
+# Storage
+[contracts.storage-uint]
+path = "contracts/storage/storage-uint.clar"
+depends_on = ["auth"]
+
+[contracts.storage-principal]
+path = "contracts/storage/storage-principal.clar"
+depends_on = ["auth"]
+
+
+
+# VAULT MODULE
+[contracts.vault-transfer-task]
+path = "contracts/vault/vault-transfer-task.clar"
+depends_on = [
+  "task-trait",
+  "vault",
+  "storage-uint",
+  "storage-principal",
+  "voting",
+]
+
+[contracts.vault-transfer-vote]
+path = "contracts/vault/vault-transfer-vote.clar"
+depends_on = [
+  "task-trait",
+  "voting",
+  "storage-uint",
+  "storage-principal"
+]
+
+# TOKEN MODULE
+[contracts.token-mint-task]
+path = "contracts/token/token-mint-task.clar"
+depends_on = [
+  "task-trait",
+  "token",
+  "storage-uint",
+  "storage-principal",
+  "voting",
+]
+
+[contracts.token-mint-vote]
+path = "contracts/token/token-mint-vote.clar"
+depends_on = [
+  "task-trait",
+  "voting",
+  "storage-uint",
+  "storage-principal",
+]
