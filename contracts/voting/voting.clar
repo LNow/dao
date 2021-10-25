@@ -6,6 +6,9 @@
 (define-constant ERR_UNKNOWN_VOTE (err u2001))
 (define-constant ERR_NOT_AUTHORIZED (err u2002))
 (define-constant ERR_ALREADY_EXECUTED (err u2003))
+(define-constant ERR_CONSENSUS_NOT_REACHED (err u2004))
+
+(define-data-var cfgConsensusThreshold uint u50)
 
 (define-data-var lastVoteId uint u0)
 (define-map Votes
@@ -108,6 +111,9 @@
     ((data (unwrap! (get-vote id) ERR_UNKNOWN_VOTE)))
     (asserts! (not (get executed data)) ERR_ALREADY_EXECUTED)
     (asserts! (and (is-eq (unwrap-panic (get task data)) contract-caller) (can-call "execute")) ERR_NOT_AUTHORIZED)
+    ;; yea stake / total possible stake
+    (asserts! (>= (/ (* (get yea data) u100) (get-token-supply-at (get startAt data))) (var-get cfgConsensusThreshold)) ERR_CONSENSUS_NOT_REACHED)
+
     (map-set Votes id (merge data {executed: true}))
 
     (print contract-caller)

@@ -57,3 +57,6 @@
 (define-private (can-call (what (string-ascii 32)))
   (contract-call? .auth can-call contract-caller CONTRACT_ADDRESS what)
 )
+
+;; Mint exactly 1 token to contract owner to enable first voting
+(ft-mint? token u1 CONTRACT_OWNER)
