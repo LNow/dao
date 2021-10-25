@@ -124,6 +124,10 @@
   (unwrap-panic (contract-call? .token get-total-supply))
 )
 
+(define-private (get-token-supply-at (block uint))
+  (unwrap-panic (at-block (unwrap-panic (get-block-info? id-header-hash block)) (contract-call? .token get-total-supply)))
+)
+
 (define-private (get-balance (who principal))
   (unwrap-panic (contract-call? .token get-balance who))
 )
