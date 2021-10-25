@@ -79,7 +79,7 @@
   (let
     (
       (data (unwrap! (get-vote id) ERR_UNKNOWN_VOTE))
-      (stake (get-balance tx-sender))
+      (stake (get-stake tx-sender (get startAt data)))
     )
     (asserts! (> stake u0) ERR_NOT_AUTHORIZED)
     (match (get-voter id tx-sender) prev
@@ -130,4 +130,14 @@
 
 (define-read-only (get-balance-at (who principal) (block uint))
   (unwrap-panic (at-block (unwrap-panic (get-block-info? id-header-hash block)) (contract-call? .token get-balance who)))
+)
+
+(define-read-only (get-stake (who principal) (block uint))
+  (let
+    (
+      (current (get-balance who))
+      (atBlock (get-balance-at who block))
+    )
+    (if (< atBlock current) atBlock current)
+  )
 )
