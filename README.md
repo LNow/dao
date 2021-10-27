@@ -27,6 +27,9 @@ Example:
 
 ::advance_chain_tip 1
 
+;; user must have at least 1 token to vote
+(contract-call? .token force-mint u1 tx-sender)
+
 ;; vote yea
 (contract-call? .voting vote-yea u1)
 
@@ -35,7 +38,7 @@ Example:
 ::get_assets_maps
 
 ;; 2nd vote to mint more tokens - this time we want to mint to someone else
-::get_costs (contract-call? .token-mint-vote create 400 'ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0 .token-mint-task)
+::get_costs (contract-call? .token-mint-vote create u400 'ST3AM1A56AK2C1XAFJ4115ZSV26EB49BVQ10MGCS0 .token-mint-task)
 
 ::advance_chain_tip 1
 
