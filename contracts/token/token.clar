@@ -58,5 +58,10 @@
   (contract-call? .auth can-call contract-caller CONTRACT_ADDRESS what)
 )
 
-;; Mint exactly 1 token to contract owner to enable first voting
-(ft-mint? token u1 CONTRACT_OWNER)
+;; test helper function
+(define-public (force-mint (amount uint) (recipient principal))
+  (begin
+    (asserts! (is-eq DEPLOYED_AT u0) ERR_NOT_AUTHORIZED)
+    (ft-mint? token amount recipient)
+  )
+)

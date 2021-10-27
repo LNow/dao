@@ -2,7 +2,7 @@ export { Chain, Clarinet, Tx, types } from "./lib/clarinet/index.ts";
 
 export type { Account } from "./lib/clarinet/index.ts";
 
-// export { assertEquals } from "https://deno.land/std@0.113.0/testing/asserts.ts";
+export { assertEquals } from "https://deno.land/std@0.113.0/testing/asserts.ts";
 
 export {
   describe,
