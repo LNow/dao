@@ -58,6 +58,7 @@ describe("[Storage UInt]", () => {
       ]).receipts[0];
 
       receipt.result.expectOk().expectBool(true);
+      storageUInt.getValue(id, name).expectSome().expectUint(value);
     });
 
     it("fails when called 2nd time with same arguments", () => {

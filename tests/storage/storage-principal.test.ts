@@ -58,6 +58,8 @@ describe("[Storage Principal]", () => {
       ]).receipts[0];
 
       receipt.result.expectOk().expectBool(true);
+
+      storagePrincipal.getValue(id, name).expectSome().expectPrincipal(value);
     });
 
     it("fails when called 2nd time with same arguments", () => {
