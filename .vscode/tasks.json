@@ -12,6 +12,12 @@
       "group": "test", // <-- this will add this task to 'Run test task'
       "type": "shell",
       "command": "clarinet test"
+    },
+    {
+      "label": "run current test file",
+      "group": "test",
+      "type": "shell",
+      "command": "clarinet test ${file}"
     }
   ]
 }
