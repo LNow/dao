@@ -20,6 +20,16 @@ describe("[Auth]", () => {
 
       result.expectBool(false);
     });
+
+    it("returns true when address have access to selected function in contract", () => {
+      const who = ctx.deployer.address;
+      const where = auth.address;
+      const what = "grant";
+
+      const result = auth.canCall(who, where, what);
+
+      result.expectBool(true);
+    })
   });
 
   describe("grant", () => {
