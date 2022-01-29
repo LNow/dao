@@ -1,7 +1,13 @@
 import { Account, Model, types } from "../deps.ts";
 
+enum Err {
+  ERR_NOT_AUTHORIZED = 4001,
+}
+
 export class AuthModel extends Model {
   name = "auth";
+
+  static Err = Err;
 
   canCall(who: string, where: string, what: string) {
     return this.callReadOnly("can-call", [

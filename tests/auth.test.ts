@@ -22,7 +22,21 @@ describe("can-call", () => {
 });
 
 describe("grant", () => {
-  it("succeeds", () => {
+  it("fails when called by random wallet", () => {
+    const who = ctx.accounts.get("wallet_3")!.address;
+    const where = auth.address;
+    const what = "bla-bla-bla";
+
+    const sender = ctx.accounts.get("wallet_7")!;
+
+    const receipt = ctx.chain.mineBlock([
+      auth.grant(who, where, what, sender),
+    ]).receipts[0];
+
+    receipt.result.expectErr().expectUint(AuthModel.Err.ERR_NOT_AUTHORIZED);
+  });
+
+  it("succeeds when called by deployer", () => {
     const who = ctx.accounts.get("wallet_3")!.address;
     const where = auth.address;
     const what = "bla-bla-bla";
@@ -37,7 +51,21 @@ describe("grant", () => {
 });
 
 describe("revoke", () => {
-  it("succeeds", () => {
+  it("fails when called by random wallet", () => {
+    const who = ctx.accounts.get("wallet_2")!.address;
+    const where = auth.address;
+    const what = "bla-bla-bla";
+
+    const sender = ctx.accounts.get("wallet_1")!;
+
+    const receipt = ctx.chain.mineBlock([
+      auth.revoke(who, where, what, sender),
+    ]).receipts[0];
+
+    receipt.result.expectErr().expectUint(AuthModel.Err.ERR_NOT_AUTHORIZED);
+  });
+
+  it("succeeds when called by contract deployer", () => {
     const who = ctx.accounts.get("wallet_7")!.address;
     const where = auth.address;
     const what = "bla-bla-bla";
