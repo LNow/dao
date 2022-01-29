@@ -18,4 +18,12 @@ export class AuthModel extends Model {
       sender
     );
   }
+
+  revoke(who: string, where: string, what: string, sender: Account) {
+    return this.callPublic(
+      "revoke",
+      [types.principal(who), types.principal(where), types.ascii(what)],
+      sender
+    )
+  }
 }

@@ -18,3 +18,11 @@
     (ok true)
   )
 )
+
+(define-public (revoke (who principal) (where principal) (what (string-ascii 32)))
+  (begin
+    (map-set Grants {who: who, what: what, where: where} false)
+    (print {EVENT: "revoke", who: who, where: where, what: what})
+    (ok true)
+  )
+)

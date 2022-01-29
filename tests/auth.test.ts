@@ -36,4 +36,23 @@ describe("grant", () => {
   });
 });
 
+describe("revoke", () => {
+  it("succeeds", () => {
+    const who = ctx.accounts.get("wallet_7")!.address;
+    const where = auth.address;
+    const what = "bla-bla-bla";
+
+    ctx.chain.mineBlock([auth.grant(who, where, what, ctx.deployer)]);
+    auth.canCall(who, where, what).expectBool(true);
+
+    // act
+    const receipt = ctx.chain.mineBlock([
+      auth.revoke(who, where, what, ctx.deployer),
+    ]).receipts[0];
+
+    receipt.result.expectOk().expectBool(true);
+    auth.canCall(who, where, what).expectBool(false);
+  });
+});
+
 run();
