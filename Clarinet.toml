@@ -6,12 +6,6 @@ telemetry = false
 requirements = []
 costs_version = 2
 
-[contracts.init]
-path = "contracts/init.clar"
-depends_on = [
-  "auth"
-]
-
 # Traits
 [contracts.sip-010-trait-ft-standard]
 path = "contracts/external/sip-010-trait-ft-standard.clar"
