@@ -80,3 +80,16 @@ export class TokenModel extends Model {
     );
   }
 }
+
+export interface VoterData {
+  support: string;
+  stake: string;
+}
+
+export interface VoteData {
+  yea: string,
+  nay: string,
+  startAt: string,
+  executed: string,
+  task: string,
+}

@@ -1,9 +1,11 @@
 [project]
 name = "DAO"
+authors = ["LNow"]
+description = "DAO Framework"
+telemetry = false
 requirements = []
 costs_version = 2
 
-# used only to setup clarinet console env.
 [contracts.init]
 path = "contracts/init.clar"
 depends_on = [

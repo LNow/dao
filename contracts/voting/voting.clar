@@ -52,7 +52,6 @@
   )
 )
 
-;; TODO
 (define-public (new-contract-vote (task principal))
   (let
     ((newId (+ (var-get lastVoteId) u1)))
@@ -130,8 +129,11 @@
   (unwrap-panic (contract-call? .token get-total-supply))
 )
 
-(define-private (get-token-supply-at (block uint))
-  (unwrap-panic (at-block (unwrap-panic (get-block-info? id-header-hash block)) (contract-call? .token get-total-supply)))
+(define-read-only (get-token-supply-at (block uint))
+  (match (get-block-info? id-header-hash block)
+    header-hash (unwrap! (at-block header-hash (contract-call? .token get-total-supply)) u0)
+    u0
+  )
 )
 
 (define-private (get-balance (who principal))
@@ -139,7 +141,10 @@
 )
 
 (define-read-only (get-balance-at (who principal) (block uint))
-  (unwrap-panic (at-block (unwrap-panic (get-block-info? id-header-hash block)) (contract-call? .token get-balance who)))
+  (match (get-block-info? id-header-hash block)
+    header-hash (unwrap! (at-block header-hash (contract-call? .token get-balance who)) u0)
+    u0
+  )
 )
 
 (define-read-only (get-stake (who principal) (block uint))
