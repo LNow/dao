@@ -425,7 +425,7 @@ describe("[Voting]", () => {
         auth.grant(
           sender.address,
           voting.address,
-          "new-contract-vote",
+          "new-task-vote",
           ctx.deployer
         ),
       ]);

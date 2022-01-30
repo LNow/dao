@@ -26,7 +26,7 @@ export class VotingModel extends Model {
   }
 
   newTaskVote(task: string, sender: Account) {
-    return this.callPublic("new-contract-vote", [types.principal(task)], sender);
+    return this.callPublic("new-task-vote", [types.principal(task)], sender);
   }
 
   voteYea(id: number, sender: Account) {

@@ -52,7 +52,7 @@
   )
 )
 
-(define-public (new-contract-vote (task principal))
+(define-public (new-task-vote (task principal))
   (let
     ((newId (+ (var-get lastVoteId) u1)))
     (map-set Votes newId {
@@ -62,7 +62,7 @@
       executed: false,
       task: (some task)
     })
-    (asserts! (can-call "new-contract-vote") ERR_NOT_AUTHORIZED)
+    (asserts! (can-call "new-task-vote") ERR_NOT_AUTHORIZED)
     (var-set lastVoteId newId)
     (print {EVENT: "new-vote", id: newId})
     (ok newId)

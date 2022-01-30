@@ -5,7 +5,7 @@
 (use-trait task .task-trait.task-trait)
 
 (define-public (create (amount uint) (recipient principal) (task <task>))
-  (match (contract-call? .voting new-contract-vote (contract-of task)) voteId
+  (match (contract-call? .voting new-task-vote (contract-of task)) voteId
     (begin
       (try! (contract-call? .storage-uint new-value voteId "amount" amount))
       (try! (contract-call? .storage-principal new-value voteId "recipient" recipient))

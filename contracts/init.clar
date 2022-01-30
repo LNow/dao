@@ -5,7 +5,7 @@
 (stx-transfer? u100000 tx-sender .vault)
 
 ;; VAULT
-(grant .vault-transfer-vote .voting "new-contract-vote")
+(grant .vault-transfer-vote .voting "new-task-vote")
 (grant .vault-transfer-vote .storage-uint "new-value")
 (grant .vault-transfer-vote .storage-principal "new-value")
 
@@ -13,7 +13,7 @@
 (grant .vault-transfer-task .voting "execute")
 
 ;; TOKEN
-(grant .token-mint-vote .voting "new-contract-vote")
+(grant .token-mint-vote .voting "new-task-vote")
 (grant .token-mint-vote .storage-uint "new-value")
 (grant .token-mint-vote .storage-principal "new-value")
 
