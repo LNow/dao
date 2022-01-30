@@ -84,6 +84,7 @@
       (stake (get-stake tx-sender (get startAt data)))
     )
     (asserts! (> stake u0) ERR_NOT_AUTHORIZED)
+    (asserts! (not (get executed data)) ERR_ALREADY_EXECUTED)
     (match (get-voter id tx-sender) prev
       ;; voted previously
       (map-set Votes id (merge data
